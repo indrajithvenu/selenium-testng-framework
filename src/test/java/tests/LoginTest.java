@@ -4,6 +4,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;	
 import org.testng.annotations.Test;
+import org.testng.Assert;
 
 import base.BaseClass;
 import pages.LoginPage;
@@ -25,11 +26,9 @@ public class LoginTest extends BaseClass{
 		
 		String currentUrl = driver.getCurrentUrl();
 		System.out.println(currentUrl);
-		if(currentUrl.contains("account")) {			
-			System.out.println("Login Successful");	
-		}else {			
-			System.out.println("Login Failed");			
-		}
+		
+		Assert.assertTrue(currentUrl.contains("account"));
+		
 		
 		try {
 			Thread.sleep(5000);
