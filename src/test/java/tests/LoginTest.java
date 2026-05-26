@@ -8,6 +8,7 @@ import org.testng.Assert;
 
 import base.BaseClass;
 import pages.LoginPage;
+import pages.HeaderComponent;
 
 public class LoginTest extends BaseClass{
 
@@ -29,13 +30,66 @@ public class LoginTest extends BaseClass{
 		
 		Assert.assertTrue(currentUrl.contains("account"));
 		
+	
+			
+	}
+	
+	@Test
+	public void verifyInvalidLogin() {
 		
-		try {
-			Thread.sleep(5000);
-			
-		} catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-			
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.clickSignIn();
+		loginPage.enterEmail("customer2@practicesoftwaretesting.com");
+		loginPage.enterPassword("wrongpassword");
+		loginPage.clickLoginButton();
+		
+		String actualErrorMessage = loginPage.getLoginErrorMessage();
+		Assert.assertEquals(actualErrorMessage, "Invalid email or password");
+		
+	}
+	
+	@Test
+	public void verifyEmptyEmailValidation() {
+		
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.clickSignIn();
+		loginPage.enterPassword("wrongpassword");
+		loginPage.clickLoginButton();
+		
+		String actualErrorMessage = loginPage.getEmailRequiredErrorMessage();
+		Assert.assertEquals(actualErrorMessage, "Email is required");
+		
+	}
+	
+	@Test
+	public void verifyEmptyPasswordValidation() {
+		
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.clickSignIn();
+		loginPage.enterEmail("customer2@practicesoftwaretesting.com");
+		loginPage.clickLoginButton();
+		
+		String actualErrorMessage= loginPage.getPasswordRequiredErrorMessage();
+		Assert.assertEquals(actualErrorMessage, "Password is required");
+		
+	}
+	
+	@Test
+	public void verifySignOut() {
+		
+		LoginPage loginPage= new LoginPage(driver);
+		HeaderComponent headerComponent = new HeaderComponent(driver);
+		
+		loginPage.clickSignIn();
+		loginPage.enterEmail("customer2@practicesoftwaretesting.com");
+		loginPage.enterPassword("welcome01");
+		loginPage.clickLoginButton();
+		
+		headerComponent.signOut();
+		System.out.println(driver.getCurrentUrl());
+		Assert.assertTrue(loginPage.isSignInButtonDisplayed());
+		
+		
+		
 	}
 }

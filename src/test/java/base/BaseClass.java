@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 public class BaseClass {
 	
@@ -11,7 +12,11 @@ public class BaseClass {
 	
 	@BeforeMethod
 	public void setup() {
-		driver= new ChromeDriver();
+		ChromeOptions options = new ChromeOptions();
+
+		options.addArguments("--incognito");
+
+		driver = new ChromeDriver(options);	
 		driver.manage().window().maximize();
 		driver.get("https://practicesoftwaretesting.com/");
 	}
