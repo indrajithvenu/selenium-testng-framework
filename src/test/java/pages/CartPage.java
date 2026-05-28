@@ -16,14 +16,33 @@ public class CartPage {
 	}
 	
 	By cartProductTitle = By.cssSelector("[data-test='product-title']");
+	By removeButton = By.cssSelector(".btn-danger");
+	By emptyCartMessage = By.xpath("//p[contains(text(),'The cart is empty')]");
 	
 	public String getCartProductName() {
 		
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
 	    wait.until(ExpectedConditions.visibilityOfElementLocated(cartProductTitle));
 	    
 	    return driver.findElement(cartProductTitle).getText();
+		
+	}
+	
+	public void removeProduct() {
+		
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    wait.until(ExpectedConditions.elementToBeClickable(removeButton));
+	    
+	    driver.findElement(removeButton).click();
+		
+	}
+	
+	public String getEmptyCartMessage() {
+		
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    wait.until(ExpectedConditions.visibilityOfElementLocated(emptyCartMessage));
+	    
+	    return driver.findElement(emptyCartMessage).getText();
 		
 	}
 
