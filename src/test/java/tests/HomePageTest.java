@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import base.BaseClass;
 import pages.HomePage;
+import utils.TestData;
 
 public class HomePageTest extends BaseClass{
 	
@@ -13,14 +14,14 @@ public class HomePageTest extends BaseClass{
 		
 		HomePage homePage = new HomePage(driver);
 		
-		homePage.searchProduct("saw");
+		homePage.searchProduct(TestData.SEARCH_PRODUCT);
 		
 		String caption = homePage.getSearchCaption();
 		int productCount = homePage.getDisplayedProductCount();
 		
 		
 		Assert.assertTrue(productCount > 0);			
-		Assert.assertTrue(caption.contains("saw"));
+		Assert.assertTrue(caption.contains(TestData.SEARCH_PRODUCT));
 		
 	}
 	
@@ -29,14 +30,14 @@ public class HomePageTest extends BaseClass{
 		
 		HomePage homePage = new HomePage(driver);
 		
-		homePage.searchProduct("xyz");
+		homePage.searchProduct(TestData.INVALID_SEARCH_PRODUCT);
 		
 		String caption = homePage.getSearchCaption();
 		String noResultMessage = homePage.getNoResultMessage();
 		
 		
-		Assert.assertTrue(caption.contains("xyz"));
-		Assert.assertEquals(noResultMessage,"There are no products found.");
+		Assert.assertTrue(caption.contains(TestData.INVALID_SEARCH_PRODUCT));
+		Assert.assertEquals(noResultMessage,TestData.NO_PRODUCT_FOUND_MESSAGE);
 		
 	}
 	

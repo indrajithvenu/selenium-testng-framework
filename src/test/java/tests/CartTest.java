@@ -8,6 +8,8 @@ import pages.CartPage;
 import pages.HeaderComponent;
 import pages.HomePage;
 import pages.ProductPage;
+import utils.TestData;
+
 
 public class CartTest extends BaseClass{
 	
@@ -20,7 +22,7 @@ public class CartTest extends BaseClass{
 		  HeaderComponent headerComponent = new HeaderComponent(driver);
 		  CartPage cartPage = new CartPage(driver);
 		  
-		  homePage.searchProduct("pliers");
+		  homePage.searchProduct(TestData.SEARCH_PRODUCT);
 		  homePage.openFirstProduct();
 		  
 		  String expectedProductName = productPage.getProductName().trim();
@@ -41,7 +43,7 @@ public class CartTest extends BaseClass{
 		  HeaderComponent headerComponent = new HeaderComponent(driver);
 		  CartPage cartPage = new CartPage(driver);
 		  
-		  homePage.searchProduct("hammer");
+		  homePage.searchProduct(TestData.SEARCH_PRODUCT);
 		  homePage.openFirstProduct();
 		  
 		  productPage.addToCart();
@@ -52,7 +54,7 @@ public class CartTest extends BaseClass{
 		  cartPage.removeProduct();
 		  String emptyCartMessage =cartPage.getEmptyCartMessage();
 		  
-		  Assert.assertEquals(emptyCartMessage,"The cart is empty. Nothing to display.");
+		  Assert.assertEquals(emptyCartMessage,TestData.EMPTY_CART_MESSAGE);
 		  
 	  }
 

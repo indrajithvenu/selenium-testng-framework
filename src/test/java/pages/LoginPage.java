@@ -45,7 +45,7 @@ public class LoginPage {
 	public void clickLoginButton() {
 		
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-	    wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField));	
+	    wait.until(ExpectedConditions.elementToBeClickable(loginButton));	
 		
 		driver.findElement(loginButton).click();
 		
@@ -56,9 +56,9 @@ public class LoginPage {
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 	    wait.until(ExpectedConditions.elementToBeClickable(signInButton));
-	    System.out.println("Trying to click Sign In");
+	    
 	    driver.findElement(signInButton).click();
-	    System.out.println("clicked Sign In");
+	    
 	}	
 	
 	public String getLoginErrorMessage() {

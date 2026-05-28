@@ -19,7 +19,7 @@ public class HeaderComponent {
 	By profileMenuButton = By.id("menu");
 	By signOutButton = By.cssSelector("[data-test='nav-sign-out']");
 	By openCartIcon = By.cssSelector("[data-test='nav-cart']");
-	By successToast = By.cssSelector(".toast-success");
+
 	
 	public void signOut() {
 

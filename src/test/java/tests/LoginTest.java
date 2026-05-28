@@ -9,6 +9,8 @@ import org.testng.Assert;
 import base.BaseClass;
 import pages.LoginPage;
 import pages.HeaderComponent;
+import utils.TestData;
+
 
 public class LoginTest extends BaseClass{
 
@@ -18,15 +20,14 @@ public class LoginTest extends BaseClass{
 		LoginPage loginPage= new LoginPage(driver);
 		
 		loginPage.clickSignIn();
-		loginPage.enterEmail("customer2@practicesoftwaretesting.com");
-		loginPage.enterPassword("welcome01");
+		loginPage.enterEmail(TestData.EMAIL);
+		loginPage.enterPassword(TestData.PASSWORD);
 		loginPage.clickLoginButton();
 		
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.urlContains("account"));
 		
 		String currentUrl = driver.getCurrentUrl();
-		System.out.println(currentUrl);
 		
 		Assert.assertTrue(currentUrl.contains("account"));
 		
@@ -39,12 +40,12 @@ public class LoginTest extends BaseClass{
 		
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.clickSignIn();
-		loginPage.enterEmail("customer2@practicesoftwaretesting.com");
-		loginPage.enterPassword("wrongpassword");
+		loginPage.enterEmail(TestData.EMAIL);
+		loginPage.enterPassword(TestData.INVALID_PASSWORD);
 		loginPage.clickLoginButton();
 		
 		String actualErrorMessage = loginPage.getLoginErrorMessage();
-		Assert.assertEquals(actualErrorMessage, "Invalid email or password");
+		Assert.assertEquals(actualErrorMessage, TestData.INVALID_EMAIL_OR_PASSWORD_MESSAGE);
 		
 	}
 	
@@ -53,11 +54,11 @@ public class LoginTest extends BaseClass{
 		
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.clickSignIn();
-		loginPage.enterPassword("wrongpassword");
+		loginPage.enterPassword(TestData.INVALID_PASSWORD);
 		loginPage.clickLoginButton();
 		
 		String actualErrorMessage = loginPage.getEmailRequiredErrorMessage();
-		Assert.assertEquals(actualErrorMessage, "Email is required");
+		Assert.assertEquals(actualErrorMessage, TestData.EMAIL_REQUIRED_MESSAGE);
 		
 	}
 	
@@ -66,11 +67,11 @@ public class LoginTest extends BaseClass{
 		
 		LoginPage loginPage = new LoginPage(driver);
 		loginPage.clickSignIn();
-		loginPage.enterEmail("customer2@practicesoftwaretesting.com");
+		loginPage.enterEmail(TestData.EMAIL);
 		loginPage.clickLoginButton();
 		
 		String actualErrorMessage= loginPage.getPasswordRequiredErrorMessage();
-		Assert.assertEquals(actualErrorMessage, "Password is required");
+		Assert.assertEquals(actualErrorMessage, TestData.PASSWORD_REQUIRED_MESSAGE);
 		
 	}
 	
@@ -81,15 +82,12 @@ public class LoginTest extends BaseClass{
 		HeaderComponent headerComponent = new HeaderComponent(driver);
 		
 		loginPage.clickSignIn();
-		loginPage.enterEmail("customer2@practicesoftwaretesting.com");
-		loginPage.enterPassword("welcome01");
+		loginPage.enterEmail(TestData.EMAIL);
+		loginPage.enterPassword(TestData.PASSWORD);
 		loginPage.clickLoginButton();
 		
 		headerComponent.signOut();
-		System.out.println(driver.getCurrentUrl());
 		Assert.assertTrue(loginPage.isSignInButtonDisplayed());
-		
-		
 		
 	}
 }
