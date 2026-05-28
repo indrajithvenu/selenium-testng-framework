@@ -64,5 +64,27 @@ public class HomePage {
 
 		return driver.findElement(noResult).getText(); 
 	}
+	
+	
+	public void openFirstProduct(){
+		
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
+	    wait.until(ExpectedConditions.visibilityOfElementLocated(productCards));
+	    List<WebElement> products = driver.findElements(productCards);
+	    
+	    if(products.size() > 0) {
+
+	        products.get(0).click();
+
+	    } else {
+
+	        throw new RuntimeException("No products found to click.");
+
+	    }	
+	}
+	    
+	  
+	    
+	
 }
